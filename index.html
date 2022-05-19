@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./themify-icons/themify-icons.css">
+    <title>Search Tags</title>
+</head>
+<body>
+    <div class="app">
+        <div class="container">
+            <h4 class="heading">Search Tags</h4>
+            <div class="search-box">
+                
+                <input class="input" type="text"placeholder="Type then enter">
+            </div>
+            <span class="remove">Remove All</span>
+        </div>
+    </div>
+
+    <script>
+        let searchElement = document.querySelector('.search-box')
+        let inputElement = document.querySelector('.input')
+        let removeElement = document.querySelector('.remove')
+        let result = ['NodeJS', 'ReacJS']
+        render()
+
+        inputElement.addEventListener('keydown', function(e){
+            if(e.key === 'Enter'){
+                if(inputElement.value.trim()){
+                    result.push(inputElement.value.trim())
+                    render()
+                }
+            }
+        })
+
+        function render(){
+                let resultLength = result.length
+                let searchHTML =''
+                searchElement.innerHTML = ''
+                for(let i =0; i<resultLength; i++){
+                    console.log(i)
+                    searchHTML += `<span class="search-tags">${result[i]}
+                                        <i onclick="remove(${i})" class="ti-close"></i>
+                                    </span>`
+                    }
+                searchElement.innerHTML = searchHTML
+                searchElement.appendChild(inputElement)
+                inputElement.value =''
+                inputElement.focus()
+                }
+
+        function remove(i){
+            result.splice(i,1)
+            render()
+        }
+        
+        removeElement.onclick = function(){
+            result = []
+            render()
+        }
+
+    </script>
+</body>
+</html>
